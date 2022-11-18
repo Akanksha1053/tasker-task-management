@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,9 +7,11 @@ import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/bloc/page_view_bloc/page_view_bloc.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/onboarding_screen_widget/onboarding_page_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/onboarding_screen_widget/skip_button_text_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/bottom_sign_up_or_in_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/widget/bottom_sign_up_or_in_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/onboarding_screen/widget/onboarding_page_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/onboarding_screen/widget/skip_button_text_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/onboarding_screen/widget/smooth_page_indicator_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/login_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -69,23 +70,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: 20.h),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.2,
-                            height: MediaQuery.of(context).size.height / 15,
-                            child: TextButton(
+                          padding:
+                              EdgeInsets.only(top: 20.h, left: 16, right: 16),
+                          child: LoginButton(
+                              text: TextConstants.getStartedButtonText,
                               onPressed: () {
                                 AutoRouter.of(context)
                                     .push(const SignUpScreenRoute());
-                              },
-                              style: TextStyleConstants.getStartedButtonStyle,
-                              child: Text(
-                                TextConstants.getStartedButtonText,
-                                style: TextStyleConstants
-                                    .getStartedButtonTextStyle,
-                              ),
-                            ),
-                          ),
+                              }),
                         ),
                         SizedBox(
                           height: 30.h,
@@ -108,20 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           const SkipButtonAndTextWidget(),
                           Column(
                             children: [
-                              SmoothPageIndicator(
-                                controller: controller,
-                                count: 3,
-                                effect: const ExpandingDotsEffect(
-                                  spacing: 8.0,
-                                  radius: 10.0,
-                                  dotWidth: 10.0,
-                                  dotHeight: 10.0,
-                                  strokeWidth: 0.5,
-                                  dotColor: ColorConstants.grey,
-                                  activeDotColor: ColorConstants.purple,
-                                  paintStyle: PaintingStyle.fill,
-                                ),
-                              ),
+                              SmoothPageIndicatorWidget(controller: controller),
                             ],
                           )
                         ],

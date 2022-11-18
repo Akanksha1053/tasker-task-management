@@ -5,7 +5,8 @@ import 'package:task_management/core/auto_route/auto_route.gr.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/credentials_field_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/credentials_field_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/login_button.dart';
 
 class CreateWorkspaceScreen extends StatefulWidget {
   const CreateWorkspaceScreen({super.key});
@@ -33,7 +34,6 @@ class _CreateWorkspaceScreenState extends State<CreateWorkspaceScreen> {
           TextConstants.createWorkspaceTitleText,
           style: TextStyleConstants.appbarTitleTextStyle,
         ),
-        // automaticallyImplyLeading: true,
         backgroundColor: ColorConstants.appbarBackgroundColor,
         elevation: 0,
       ),
@@ -79,22 +79,11 @@ class _CreateWorkspaceScreenState extends State<CreateWorkspaceScreen> {
             SizedBox(
               height: 32.h,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height / 12,
-              padding:
-                  const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.r),
-                  color: ColorConstants.purple),
-              child: TextButton(
-                  style: TextStyleConstants.getStartedButtonStyle,
-                  onPressed: () {
-                    AutoRouter.of(context).push(const ChoosePlanScreenRoute());
-                  },
-                  child: Text(TextConstants.createWorkspaceButtonText,
-                      style: TextStyleConstants.signupButtonTextStyle)),
-            ),
+            LoginButton(
+                text: TextConstants.createWorkspaceButtonText,
+                onPressed: () {
+                  AutoRouter.of(context).push(const ChoosePlanScreenRoute());
+                }),
           ]),
         ),
       ),

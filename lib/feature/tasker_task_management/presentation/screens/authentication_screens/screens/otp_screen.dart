@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_management/core/auto_route/auto_route.gr.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/reset_password_screen.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/login_button.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -136,33 +134,13 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height / 12,
-                padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 8, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: ColorConstants.purple),
-                child: TextButton(
-                    style: TextStyleConstants.getStartedButtonStyle,
-                    onPressed: () {
-                    
-                      AutoRouter.of(context)
-                          .push(const ResetPasswordScreenRoute());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(TextConstants.nextButtonText,
-                            style: TextStyleConstants.signupButtonTextStyle),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: ColorConstants.white,
-                        )
-                      ],
-                    )),
-              ),
+              LoginButton(
+                  text: TextConstants.nextButtonText,
+                  icon: Icons.arrow_forward,
+                  onPressed: () {
+                    AutoRouter.of(context)
+                        .push(const ResetPasswordScreenRoute());
+                  }),
             ],
           ),
         ),

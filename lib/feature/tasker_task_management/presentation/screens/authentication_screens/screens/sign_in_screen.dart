@@ -7,13 +7,13 @@ import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/bloc/signin_bloc/sign_in_bloc.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/bottom_sign_up_or_in_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/credentials_field_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/divider_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/login_option_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/methods/error_dialog.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/widget/bottom_sign_up_or_in_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/widget/divider_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/widget/login_option_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/credentials_field_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/login_button.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/methods/snack_bar_widget.dart';
-
-import '../../methods/sign_in_error_dialog.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -41,7 +41,6 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void clearTextFields() {
-    // _emailController.clear();
     _passwordController.clear();
   }
 
@@ -108,27 +107,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 30),
-                        Container(
-                          height: MediaQuery.of(context).size.height / 12,
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, top: 8, bottom: 8),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.r),
-                              color: ColorConstants.purple),
-                          child: TextButton(
-                              onPressed: () async {
-                                if (_saveForm()) {
-                                  BlocProvider.of<SignInBloc>(context).add(
-                                      SignInUserEvent(
-                                          email: _emailController.text,
-                                          password: _passwordController.text));
-                                }
-                              },
-                              child: Text(TextConstants.signInText,
-                                  style: TextStyleConstants
-                                      .signupButtonTextStyle)),
-                        ),
+                        LoginButton(
+                            text: TextConstants.signInText,
+                            onPressed: () async {
+                              if (_saveForm()) {
+                                BlocProvider.of<SignInBloc>(context).add(
+                                    SignInUserEvent(
+                                        email: _emailController.text,
+                                        password: _passwordController.text));
+                              }
+                            }),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 40,
                         ),
@@ -173,10 +161,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   context,
                   TextConstants.signedInSuccessfullyText,
                   TextStyleConstants.registeredSuccessfullyTextStyle);
-              // AutoRouter.of(context).pop();
               AutoRouter.of(context).push(const CreateWorkspaceScreenRoute());
             } else if (state is SignInFailure) {
-              showErrorDialogSignIn(context, state);
+              showDialogForErrror(
+                  context: context,
+                  message: state.message,
+                  onPressed: () {
+                    AutoRouter.of(context).pop();
+                    BlocProvider.of<SignInBloc>(context)
+                        .add(SignInResetEvent());
+                  });
               clearTextFields();
             }
             return Container();

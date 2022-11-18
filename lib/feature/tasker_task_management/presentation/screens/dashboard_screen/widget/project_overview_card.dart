@@ -4,7 +4,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/dashboard_screen_widget/project_date.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/dashboard_screen/widget/project_date.dart';
 
 class ProjectOverviewCard extends StatelessWidget {
   const ProjectOverviewCard({

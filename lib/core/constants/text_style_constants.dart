@@ -62,4 +62,6 @@ class TextStyleConstants {
       fontSize: 18.sp,
       fontWeight: FontWeight.bold,
       color: ColorConstants.black);
+  static TextStyle deleteProjectTextStyle =
+      TextStyle(fontSize: 15.sp, color: ColorConstants.red);
 }

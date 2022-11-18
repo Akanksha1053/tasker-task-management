@@ -18,13 +18,13 @@ class DashboardSearchWidget extends StatelessWidget {
           color: ColorConstants.white,
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
-            BoxShadow(blurRadius: 2.r, color: ColorConstants.lightGrey),
+            BoxShadow(blurRadius: 10.r, color: ColorConstants.lightGrey),
           ]),
       //Row for search bar
       child: Row(
         children: [
           IconButton(
-              onPressed: null,
+              onPressed: () {},
               icon: Icon(
                 Icons.search,
                 size: 24.sp,

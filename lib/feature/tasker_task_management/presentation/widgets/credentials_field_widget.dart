@@ -10,10 +10,10 @@ class CredentialFormField extends StatefulWidget {
       this.suffixIcon,
       required this.label,
       required this.controller});
-  final IconData iconLeading;
+  final IconData? iconLeading;
   IconData? suffixIcon;
-  final String label;
-  final TextEditingController controller;
+  final String? label;
+  final TextEditingController? controller;
 
   @override
   State<CredentialFormField> createState() => _CredentialFormFieldState();

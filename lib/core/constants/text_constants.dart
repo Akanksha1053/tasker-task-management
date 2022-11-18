@@ -53,4 +53,16 @@ class TextConstants {
   static const String yourRecentTaskText = 'Your recent task';
   static const String projectName = 'Mane UiKit';
   static const String taskNameText = 'Userflow';
+  static const String brainstormText = 'Brainstorm';
+  static const String designText = 'Design';
+  static const String addGroupText = 'Add group';
+  static const String checkDoneText = 'Check done';
+  static const String copyLineText = 'Copy Line';
+  static const String shareText = 'Share';
+  static const String deleteProjectText = 'Delete project';
+  static const String createTaskText = 'Create task';
+  static const String createProjectText = 'Create project';
+  static const String createTeamText = 'Create team';
+  static const String createMeetingText = 'Create meeting';
+  static const String addMemberToProjectText = 'Add member';
 }

@@ -7,6 +7,7 @@ import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/bloc/authentication_bloc/authentication_bloc.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/login_button.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -119,24 +120,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height / 12,
-                      padding: const EdgeInsets.only(
-                          left: 16, right: 16, top: 8, bottom: 8),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: ColorConstants.purple),
-                      child: TextButton(
-                          style: TextStyleConstants.getStartedButtonStyle,
-                          onPressed: () {
-                            BlocProvider.of<AuthenticationBloc>(context).add(
-                                OtpAuthenticationEvent(
-                                    phoneNumber: phoneNumber));
-                          },
-                          child: Text(TextConstants.sendOtpText,
-                              style: TextStyleConstants.signupButtonTextStyle)),
-                    ),
+                    LoginButton(
+                        text: TextConstants.sendOtpText,
+                        onPressed: () {
+                          BlocProvider.of<AuthenticationBloc>(context).add(
+                              OtpAuthenticationEvent(phoneNumber: phoneNumber));
+                        }),
                   ],
                 );
               } else if (state is OtpAuthenticationSuccessState) {

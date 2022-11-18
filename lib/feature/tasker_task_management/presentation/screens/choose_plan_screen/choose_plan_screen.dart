@@ -5,8 +5,8 @@ import 'package:task_management/core/auto_route/auto_route.gr.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/screens/dashboard_screen.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/choose_plan_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/choose_plan_screen/widget/choose_plan_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/login_button.dart';
 
 class ChoosePlanScreen extends StatefulWidget {
   const ChoosePlanScreen({super.key});
@@ -32,7 +32,6 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
           TextConstants.choosePlanTitleText,
           style: TextStyleConstants.appbarTitleTextStyle,
         ),
-        // automaticallyImplyLeading: true,
         backgroundColor: ColorConstants.appbarBackgroundColor,
         elevation: 0,
       ),
@@ -127,38 +126,15 @@ class _ChoosePlanScreenState extends State<ChoosePlanScreen> {
             ],
           ),
           const Spacer(),
-          Container(
-            height: MediaQuery.of(context).size.height / 12,
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.r),
-                color: ColorConstants.purple),
-            child: TextButton(
-                style: TextStyleConstants.getStartedButtonStyle,
-                onPressed: () {
-                  if (isSelected1 || isSelected2) {
-                    AutoRouter.of(context).popUntilRoot();
-                    AutoRouter.of(context).push(const DashboardScreenRoute());
-                  }
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(TextConstants.continueButtonText,
-                        style: TextStyleConstants.signupButtonTextStyle),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Icon(
-                      Icons.arrow_forward,
-                      size: 20.sp,
-                      color: ColorConstants.white,
-                    )
-                  ],
-                )),
-          ),
+          LoginButton(
+              text: TextConstants.continueButtonText,
+              icon: Icons.arrow_forward,
+              onPressed: () {
+                if (isSelected1 || isSelected2) {
+                  AutoRouter.of(context).popUntilRoot();
+                  AutoRouter.of(context).push(const DashboardScreenRoute());
+                }
+              }),
         ]),
       ),
     );

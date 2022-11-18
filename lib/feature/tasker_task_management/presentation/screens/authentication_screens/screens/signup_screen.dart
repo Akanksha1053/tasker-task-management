@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_management/core/auto_route/auto_route.gr.dart';
@@ -8,10 +7,12 @@ import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/bloc/authentication_bloc/authentication_bloc.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/bottom_sign_up_or_in_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/credentials_field_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/divider_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/widgets/sign_in_up_widgets/login_option_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/methods/error_dialog.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/widget/bottom_sign_up_or_in_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/widget/divider_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/authentication_screens/widget/login_option_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/credentials_field_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/login_button.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/methods/snack_bar_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -43,31 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } else {
       return false;
     }
-  }
-
-  void showDialogForErrror(String message, BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      showDialog(
-        builder: (context) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: AlertDialog(
-            scrollable: true,
-            content: Text(message),
-            actions: [
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  AutoRouter.of(context).pop();
-                  BlocProvider.of<AuthenticationBloc>(context)
-                      .add(AuthenticationResetEvent());
-                },
-              )
-            ],
-          ),
-        ),
-        context: context,
-      );
-    });
   }
 
   void clearTextFields() {
@@ -129,31 +105,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             controller: _confirmPasswordController),
                         SizedBox(
                             height: MediaQuery.of(context).size.height / 20),
-                        Container(
-                          height: MediaQuery.of(context).size.height / 12,
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, top: 8, bottom: 8),
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: ColorConstants.purple),
-                          child: TextButton(
-                              onPressed: () async {
-                                if (_saveForm()) {
-                                  BlocProvider.of<AuthenticationBloc>(context,
-                                          listen: false)
-                                      .add(CreateUserEvent(
-                                          email: _emailController.text,
-                                          password: _passwordController.text));
-                                } else {
-                                  showDialogForErrror(
+                        LoginButton(
+                          onPressed: () {
+                            if (_saveForm()) {
+                              BlocProvider.of<AuthenticationBloc>(context,
+                                      listen: false)
+                                  .add(CreateUserEvent(
+                                      email: _emailController.text,
+                                      password: _passwordController.text));
+                            } else {
+                              showDialogForErrror(
+                                  context: context,
+                                  message:
                                       TextConstants.passwordAndConfirmUnmatched,
-                                      context);
-                                }
-                              },
-                              child: Text(TextConstants.signUpText,
-                                  style: TextStyleConstants
-                                      .signupButtonTextStyle)),
+                                  onPressed: () {
+                                    AutoRouter.of(context).pop();
+                                    BlocProvider.of<AuthenticationBloc>(context)
+                                        .add(AuthenticationResetEvent());
+                                  });
+                            }
+                          },
+                          text: TextConstants.signUpText,
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height / 40,
@@ -202,7 +174,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextStyleConstants.registeredSuccessfullyTextStyle);
               AutoRouter.of(context).push(const SignInScreenRoute());
             } else if (state is AuthenticationFailure) {
-              showDialogForErrror(state.message, context);
+              showDialogForErrror(
+                  message: state.message,
+                  context: context,
+                  onPressed: () {
+                    AutoRouter.of(context).pop();
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(AuthenticationResetEvent());
+                  });
               clearTextFields();
             }
             return Container();
