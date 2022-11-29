@@ -35,35 +35,49 @@ class _CredentialFormFieldState extends State<CredentialFormField> {
 
   @override
   Widget build(BuildContext context) {
-    final isPassword = widget.label == 'email';
-    bool isObscure = !isPassword;
+    final isPassword =
+        (widget.label == 'Password' || widget.label == 'Confirm Password');
+    bool isObscure = isPassword;
     return Material(
       elevation: 2,
-      shadowColor: ColorConstants.lightGrey,
       color: ColorConstants.scaffoldBackgroundColor,
-      borderRadius: BorderRadius.circular(16.r),
+      shadowColor: ColorConstants.lightGrey,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       child: TextFormField(
         decoration: InputDecoration(
-            focusedBorder: TextStyleConstants.phoneNumberTextBorder,
-            prefixIcon: Icon(
-              widget.iconLeading,
-              size: 24.r,
-              color: Colors.black54,
-            ),
-            hintText: widget.label,
-            suffixIcon: IconButton(
-              icon: Icon(widget.suffixIcon),
-              onPressed: () {
-                setState(() {
-                  isObscure = !isObscure;
-                });
-              },
-            ),
-            border: InputBorder.none),
+          focusedBorder: TextStyleConstants.phoneNumberTextBorder,
+          disabledBorder: TextStyleConstants.phoneNumberTextBorder,
+          border: InputBorder.none,
+          prefixIcon: Icon(
+            widget.iconLeading,
+            size: 24.r,
+            color: Colors.black54,
+          ),
+          hintText: widget.label,
+          hintStyle: TextStyle(
+            color: _focusNode.hasFocus
+                ? ColorConstants.purple
+                : ColorConstants.black,
+          ),
+          suffixIcon: IconButton(
+            icon: Icon(widget.suffixIcon),
+            onPressed: () {
+              setState(() {
+                isObscure = !isObscure;
+              });
+              _focusNode.requestFocus();
+            },
+          ),
+        ),
         controller: widget.controller,
+        keyboardType: widget.label == 'Members'
+            ? TextInputType.number
+            : TextInputType.text,
         autofocus: true,
         focusNode: _focusNode,
         obscureText: isObscure,
+        cursorColor: ColorConstants.purple,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please provide ${widget.label}.';

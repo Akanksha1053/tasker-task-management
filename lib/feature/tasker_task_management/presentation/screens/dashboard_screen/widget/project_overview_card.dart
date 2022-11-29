@@ -14,7 +14,7 @@ class ProjectOverviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 148.h,
+      height: 140,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: ColorConstants.white,
@@ -31,8 +31,8 @@ class ProjectOverviewCard extends StatelessWidget {
                 style: TextStyleConstants.projectNameTextStyle),
           ],
         ),
-        SizedBox(
-          height: 16.h,
+        const SizedBox(
+          height: 16,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -41,22 +41,24 @@ class ProjectOverviewCard extends StatelessWidget {
             ProjectDate(color: ColorConstants.purple),
           ],
         ),
-        SizedBox(
-          height: 16.h,
+        const SizedBox(
+          height: 16,
         ),
         Row(
           children: [
             const Text('50%'),
-            SizedBox(
-              width: 8.w,
+            const SizedBox(
+              width: 8,
             ),
-            LinearPercentIndicator(
-              width: 200.w,
-              lineHeight: 8.h,
-              barRadius: Radius.circular(16.r),
-              percent: 0.5,
-              backgroundColor: ColorConstants.lightGrey,
-              progressColor: ColorConstants.purple,
+            Expanded(
+              flex: 3,
+              child: LinearPercentIndicator(
+                lineHeight: 8,
+                barRadius: Radius.circular(16.r),
+                percent: 0.5,
+                backgroundColor: ColorConstants.lightGrey,
+                progressColor: ColorConstants.purple,
+              ),
             ),
             const Text('24/48 tasks'),
           ],

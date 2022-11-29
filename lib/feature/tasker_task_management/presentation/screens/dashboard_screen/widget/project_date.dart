@@ -17,8 +17,8 @@ class ProjectDate extends StatelessWidget {
           child:
               SvgPicture.asset('lib/assets/images/calendar.svg', color: color),
         ),
-        SizedBox(
-          width: 8.w,
+        const SizedBox(
+          width: 8,
         ),
         Text(
           '01/01/22',

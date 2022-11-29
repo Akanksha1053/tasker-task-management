@@ -4,11 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/screens/dashboard_screen/widget/recent_task_view_widget.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/screens/project_detail_screen/widget/addin_project_popup.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/screens/project_detail_screen/widget/create_popup.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/screens/project_detail_screen/widget/brainstorm_design_text_widget.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/screens/project_detail_screen/widget/more_icon_popup_menu.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/screens/project_detail_screen/widget/project_detail_taskview_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/circle_avatar_icon_widget.dart';
 
 class ProjectDetailScreen extends StatefulWidget {
   const ProjectDetailScreen({super.key});
@@ -23,6 +23,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
     return Scaffold(
         backgroundColor: ColorConstants.scaffoldBackgroundColor,
         extendBody: true,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
             centerTitle: true,
             iconTheme: IconThemeData(
@@ -36,7 +37,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
               style: TextStyleConstants.appbarTitleTextStyle,
             ),
             actions: const [
-              AddInProjectPopupMenu(),
+              CreatePopupMenu(),
             ]),
         body: SingleChildScrollView(
           child: Container(
@@ -46,8 +47,13 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
               color: ColorConstants.scaffoldBackgroundColor,
               child: Column(children: [
                 Row(children: [
-                  CircleAvatarDashboardWidget(
+                  CircleAvatarIconWidget(
                     radius: 50.r,
+                    height: 28.r,
+                    width: 28.r,
+                    assetPath: 'lib/assets/images/dashboard.svg',
+                    avatarColor: ColorConstants.lightGrey,
+                    iconColor: ColorConstants.black,
                   ),
                   const SizedBox(width: 8),
                   Text(TextConstants.projectName,

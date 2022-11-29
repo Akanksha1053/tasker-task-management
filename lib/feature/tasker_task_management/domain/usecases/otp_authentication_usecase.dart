@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:task_management/core/errors/failure.dart';
-import 'package:task_management/core/usecases/usecase.dart';
 import 'package:task_management/feature/tasker_task_management/domain/repository/authenticate_repo.dart';
 
 class OtpAuthenticationUsecase {
@@ -14,7 +13,6 @@ class OtpAuthenticationUsecase {
     return await authenticateRepository.otpAuthentication(
         OtpAuthenticationParams(phoneNumber: params.phoneNumber));
   }
-
 }
 
 class OtpAuthenticationParams extends Equatable {
@@ -24,5 +22,3 @@ class OtpAuthenticationParams extends Equatable {
   @override
   List<Object?> get props => [phoneNumber];
 }
-
-

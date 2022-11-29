@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstants.scaffoldBackgroundColor,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
@@ -65,128 +65,142 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: ColorConstants.appbarBackgroundColor,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-            if (state is InitialState) {
-              return Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 32, left: 24, right: 24),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const SizedBox(height: 10),
-                        const Text(
-                          TextConstants.signUpText,
-                          style: TextStyleConstants.signUpHeadTextStyle,
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
-                        CredentialFormField(
-                            iconLeading: Icons.email_outlined,
-                            label: 'email',
-                            controller: _emailController),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 30),
-                        CredentialFormField(
-                            iconLeading: Icons.lock,
-                            label: 'Password',
-                            suffixIcon: Icons.remove_red_eye_outlined,
-                            controller: _passwordController),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 30),
-                        CredentialFormField(
-                            iconLeading: Icons.lock,
-                            label: 'Confirm Password',
-                            suffixIcon: Icons.remove_red_eye_outlined,
-                            controller: _confirmPasswordController),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height / 20),
-                        LoginButton(
-                          onPressed: () {
-                            if (_saveForm()) {
-                              BlocProvider.of<AuthenticationBloc>(context,
-                                      listen: false)
-                                  .add(CreateUserEvent(
-                                      email: _emailController.text,
-                                      password: _passwordController.text));
-                            } else {
-                              showDialogForErrror(
-                                  context: context,
-                                  message:
-                                      TextConstants.passwordAndConfirmUnmatched,
-                                  onPressed: () {
-                                    AutoRouter.of(context).pop();
-                                    BlocProvider.of<AuthenticationBloc>(context)
-                                        .add(AuthenticationResetEvent());
-                                  });
-                            }
-                          },
-                          text: TextConstants.signUpText,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 40,
-                        ),
-                        const DividerWidget(
-                            text: TextConstants.orSignUpWithText),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              LoginOptionWidget(icon: Icons.facebook_outlined),
-                              SizedBox(
-                                width: 16,
+      body: Stack(
+        children: [
+          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+              if (state is InitialState) {
+                return Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 16, left: 16, right: 16),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const SizedBox(height: 10),
+                            const Text(
+                              TextConstants.signUpText,
+                              style: TextStyleConstants.signUpHeadTextStyle,
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height / 20),
+                            CredentialFormField(
+                                iconLeading: Icons.email_outlined,
+                                label: 'email',
+                                controller: _emailController),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height / 30),
+                            CredentialFormField(
+                                iconLeading: Icons.lock,
+                                label: 'Password',
+                                suffixIcon: Icons.remove_red_eye_outlined,
+                                controller: _passwordController),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height / 30),
+                            CredentialFormField(
+                                iconLeading: Icons.lock,
+                                label: 'Confirm Password',
+                                suffixIcon: Icons.remove_red_eye_outlined,
+                                controller: _confirmPasswordController),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height / 20),
+                            LoginButton(
+                              onPressed: () {
+                                if (_saveForm()) {
+                                  BlocProvider.of<AuthenticationBloc>(context,
+                                          listen: false)
+                                      .add(CreateUserEvent(
+                                          email: _emailController.text,
+                                          password: _passwordController.text));
+                                } else {
+                                  showDialogForErrror(
+                                      context: context,
+                                      message: TextConstants
+                                          .passwordAndConfirmUnmatched,
+                                      onPressed: () {
+                                        AutoRouter.of(context).pop();
+                                        BlocProvider.of<AuthenticationBloc>(
+                                                context)
+                                            .add(AuthenticationResetEvent());
+                                      });
+                                }
+                              },
+                              text: TextConstants.signUpText,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 16.0),
+                              child: DividerWidget(
+                                  text: TextConstants.orSignUpWithText),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  LoginOptionWidget(
+                                      icon: Icons.facebook_outlined),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  LoginOptionWidget(icon: Icons.apple_outlined),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  LoginOptionWidget(
+                                      icon: Icons.g_mobiledata_outlined)
+                                ],
                               ),
-                              LoginOptionWidget(icon: Icons.apple_outlined),
-                              SizedBox(
-                                width: 16,
-                              ),
-                              LoginOptionWidget(
-                                  icon: Icons.g_mobiledata_outlined)
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        SignUpOrInOption(
-                            buttonText: TextConstants.signInText,
-                            buttonTextStyle: TextStyleConstants.signInTextStyle,
-                            route: const SignInScreenRoute(),
-                            staticText: TextConstants.alreadyHaveAnAccountText,
-                            staticTextStyle: TextStyleConstants
-                                .alreadyHaveAnAccountTextStyle),
-                      ]),
-                ),
-              );
-            }
-            if (state is LoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is SuccessfulState) {
-              clearTextFields();
-              showSnackBarMethod(
-                  context,
-                  TextConstants.registeredSuccessfullyText,
-                  TextStyleConstants.registeredSuccessfullyTextStyle);
-              AutoRouter.of(context).push(const SignInScreenRoute());
-            } else if (state is AuthenticationFailure) {
-              showDialogForErrror(
-                  message: state.message,
-                  context: context,
-                  onPressed: () {
-                    AutoRouter.of(context).pop();
-                    BlocProvider.of<AuthenticationBloc>(context)
-                        .add(AuthenticationResetEvent());
-                  });
-              clearTextFields();
-            }
-            return Container();
-          },
-        ),
+                            ),
+                            // Spacer(),
+                          ]),
+                    ),
+                  ),
+                );
+              }
+              if (state is LoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is SuccessfulState) {
+                clearTextFields();
+                showSnackBarMethod(
+                    context,
+                    TextConstants.registeredSuccessfullyText,
+                    TextStyleConstants.registeredSuccessfullyTextStyle);
+                AutoRouter.of(context).push(const SignInScreenRoute());
+              } else if (state is AuthenticationFailure) {
+                showDialogForErrror(
+                    message: state.message,
+                    context: context,
+                    onPressed: () {
+                      AutoRouter.of(context).pop();
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(AuthenticationResetEvent());
+                    });
+                clearTextFields();
+              }
+              return Container();
+            },
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height / 1.28,
+            left: 60,
+            child: SignUpOrInOption(
+                buttonText: TextConstants.signInText,
+                buttonTextStyle: TextStyleConstants.signInTextStyle,
+                route: const SignInScreenRoute(),
+                staticText: TextConstants.alreadyHaveAnAccountText,
+                staticTextStyle:
+                    TextStyleConstants.alreadyHaveAnAccountTextStyle),
+          ),
+        ],
       ),
     );
   }

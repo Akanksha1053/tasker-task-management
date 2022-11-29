@@ -65,4 +65,11 @@ class TextConstants {
   static const String createTeamText = 'Create team';
   static const String createMeetingText = 'Create meeting';
   static const String addMemberToProjectText = 'Add member';
+  static const String dateAndTimeText = 'Date and time';
+  static const String addLabelText = 'Add label';
+  static const String descriptionText = 'Description';
+  static const String privacyText = 'Privacy';
+  static const String workspaceTitleText = 'All Workspaces';
+  static const String addMemberText = 'Add member';
+  static const String selectedText = 'Selected';
 }

@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_management/feature/tasker_task_management/domain/repository/authenticate_repo.dart';
 import 'package:task_management/feature/tasker_task_management/domain/usecases/sign_in_usecase.dart';
 

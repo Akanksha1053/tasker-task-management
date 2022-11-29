@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_management/core/constants/color_constants.dart';
@@ -44,7 +42,7 @@ class TextStyleConstants {
   static TextStyle bodyTextStyle = TextStyle(
       fontSize: 15.sp, color: ColorConstants.grey, fontWeight: FontWeight.w300);
   static OutlineInputBorder phoneNumberTextBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(16.r)),
+      borderRadius: BorderRadius.all(Radius.circular(12.r)),
       borderSide: const BorderSide(color: ColorConstants.purple));
   static TextStyle headlineTextStyle = TextStyle(
       fontSize: 15.sp,
@@ -64,4 +62,9 @@ class TextStyleConstants {
       color: ColorConstants.black);
   static TextStyle deleteProjectTextStyle =
       TextStyle(fontSize: 15.sp, color: ColorConstants.red);
+  static TextStyle workspaceTextStyle = TextStyle(
+    fontSize: 15.sp,
+    color: ColorConstants.purple,
+    fontWeight: FontWeight.bold,
+  );
 }

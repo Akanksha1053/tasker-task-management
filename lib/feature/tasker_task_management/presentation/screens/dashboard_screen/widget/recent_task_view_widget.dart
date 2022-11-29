@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/circle_avatar_icon_widget.dart';
 
 // class RecentTaskView extends StatelessWidget {
 //   const RecentTaskView({
@@ -46,8 +47,13 @@ class TaskViewWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
         ),
         child: ListTile(
-            leading: CircleAvatarDashboardWidget(
+            leading: CircleAvatarIconWidget(
               radius: 50.r,
+              assetPath: 'lib/assets/images/dashboard.svg',
+              height: 44.r,
+              width: 44.r,
+              avatarColor: ColorConstants.lightGrey,
+              iconColor: ColorConstants.black,
             ),
             title: Text(
               TextConstants.taskNameText,
@@ -79,25 +85,5 @@ class TaskViewWidget extends StatelessWidget {
                 ),
               ],
             )));
-  }
-}
-
-class CircleAvatarDashboardWidget extends StatelessWidget {
-  const CircleAvatarDashboardWidget({Key? key, required this.radius})
-      : super(key: key);
-  final double radius;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 28.r,
-      width: 28.r,
-      decoration: BoxDecoration(
-          color: ColorConstants.lightGrey,
-          borderRadius: BorderRadius.circular(radius)),
-      child: SvgPicture.asset(
-        'lib/assets/images/dashboard.svg',
-        color: ColorConstants.black,
-      ),
-    );
   }
 }

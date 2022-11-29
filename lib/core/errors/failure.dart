@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
@@ -14,7 +12,7 @@ class ServerFailure extends Failure {
 }
 
 class InsertionFailure extends Failure {
-  const InsertionFailure(String message) : super(message);
+  const InsertionFailure({required String message}) : super(message);
 }
 
 class AuthenticationFailure extends Failure {
@@ -31,4 +29,12 @@ class FirebaseAuthFailure extends Failure {
 
 class SignInFailure extends Failure {
   const SignInFailure({required String message}) : super(message);
+}
+
+class CreateFailure extends Failure {
+  const CreateFailure({required String message}) : super(message);
+}
+
+class FetchFailure extends Failure {
+  const FetchFailure({required String message}) : super(message);
 }

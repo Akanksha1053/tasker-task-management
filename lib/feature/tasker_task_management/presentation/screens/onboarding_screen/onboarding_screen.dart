@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_management/core/auto_route/auto_route.gr.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_constants.dart';
@@ -26,22 +25,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(height: 100.h),
+        const SizedBox(height: 100),
         Expanded(
             child: Image.asset(
           'lib/assets/images/onboarding_${index + 1}.png',
           scale: 1,
         )),
-        SizedBox(
-          height: 60.h,
+        const SizedBox(
+          height: 60,
         ),
         Text(
           textAlign: TextAlign.center,
           (TextConstants.loremIpsumText),
           style: TextStyleConstants.loreIpsumTextStyle,
         ),
-        SizedBox(
-          height: 30.h,
+        const SizedBox(
+          height: 30,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 16),
@@ -63,33 +62,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             color: ColorConstants.white,
-            child: Column(children: <Widget>[
+            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               OnboardingPageWidget(controller: controller, pages: pages),
               (state as PageViewInitial).index == 2
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsets.only(top: 20.h, left: 16, right: 16),
-                          child: LoginButton(
-                              text: TextConstants.getStartedButtonText,
-                              onPressed: () {
-                                AutoRouter.of(context)
-                                    .push(const SignUpScreenRoute());
-                              }),
-                        ),
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        SignUpOrInOption(
-                            buttonText: TextConstants.signInText,
-                            buttonTextStyle: TextStyleConstants.signInTextStyle,
-                            route: const SignInScreenRoute(),
-                            staticText: TextConstants.alreadyHaveAnAccountText,
-                            staticTextStyle: TextStyleConstants
-                                .alreadyHaveAnAccountTextStyle),
-                      ],
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height / 4.5,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 16, left: 16, right: 16),
+                            child: LoginButton(
+                                text: TextConstants.getStartedButtonText,
+                                onPressed: () {
+                                  AutoRouter.of(context)
+                                      .push(const SignUpScreenRoute());
+                                }),
+                          ),
+                          const Spacer(),
+                          SignUpOrInOption(
+                              buttonText: TextConstants.signInText,
+                              buttonTextStyle:
+                                  TextStyleConstants.signInTextStyle,
+                              route: const SignInScreenRoute(),
+                              staticText:
+                                  TextConstants.alreadyHaveAnAccountText,
+                              staticTextStyle: TextStyleConstants
+                                  .alreadyHaveAnAccountTextStyle),
+                        ],
+                      ),
                     )
                   : Padding(
                       padding:

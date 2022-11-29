@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_management/core/constants/color_constants.dart';
 import 'package:task_management/core/constants/text_style_constants.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/screens/dashboard_screen/widget/project_date.dart';
-import 'package:task_management/feature/tasker_task_management/presentation/screens/dashboard_screen/widget/recent_task_view_widget.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/circle_avatar_icon_widget.dart';
 
 class ProjectDetailTaskViewWidget extends StatelessWidget {
   const ProjectDetailTaskViewWidget({
@@ -16,7 +16,6 @@ class ProjectDetailTaskViewWidget extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 2,
       child: ListView.builder(
           itemCount: 3,
-          // physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             return Container(
               height: 112.h,
@@ -33,7 +32,14 @@ class ProjectDetailTaskViewWidget extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      CircleAvatarDashboardWidget(radius: 8.r),
+                      CircleAvatarIconWidget(
+                        radius: 8.r,
+                        assetPath: 'lib/assets/images/dashboard.svg',
+                        height: 28.h,
+                        width: 28.w,
+                        avatarColor: ColorConstants.lightGrey,
+                        iconColor: ColorConstants.black,
+                      ),
                       const SizedBox(width: 8),
                       Text('Userflow',
                           style: TextStyleConstants.projectNameTextStyle),

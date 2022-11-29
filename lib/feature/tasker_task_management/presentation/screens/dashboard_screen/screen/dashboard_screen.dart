@@ -9,6 +9,7 @@ import 'package:task_management/core/constants/text_style_constants.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/bloc/bottom_navigation_bloc/bottom_navigation_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_management/feature/tasker_task_management/presentation/screens/dashboard_screen/widget/home_page.dart';
+import 'package:task_management/feature/tasker_task_management/presentation/widgets/add_button_widget.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -38,27 +39,10 @@ class DashboardScreen extends StatelessWidget {
               SvgPicture.asset('lib/assets/images/dashboard.svg'),
             ],
           ),
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
-              height: 44.r,
-              width: 44.r,
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  alignment: Alignment.centerLeft,
-                  backgroundColor: ColorConstants.purple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                ),
-                child: Icon(
-                  Icons.add,
-                  size: 24.r,
-                  color: ColorConstants.white,
-                ),
-              ),
-            ),
+          actions: const [
+            AddButtonWidget(
+                buttonColor: ColorConstants.purple,
+                iconColor: ColorConstants.white),
           ]),
       body: BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
           builder: (context, state) {

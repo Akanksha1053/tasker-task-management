@@ -1,6 +1,4 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:task_management/core/errors/failure.dart';
 import 'package:task_management/feature/tasker_task_management/domain/usecases/authenticate_usecase.dart';
 import 'package:task_management/feature/tasker_task_management/domain/usecases/otp_authentication_usecase.dart';
